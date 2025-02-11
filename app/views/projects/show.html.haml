@@ -1,0 +1,96 @@
+:css
+  section {
+    width: 80%;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+  }
+
+  .btn-warning {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+  }
+
+  .btn:hover {
+    opacity: 0.8;
+  }
+
+  select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 80px;
+  }
+
+  .comment-box {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+
+%section
+  %h2
+    = @resource.title
+  %p{ style: "text-align: center; color: #666; margin-bottom: 15px;" }
+    = @resource.description
+  %p{ style: "font-weight: bold;" }
+    = "Created By: #{ @resource.user.name || @resource.user.email }"
+
+  %hr{ style: "margin: 20px 0;" }
+
+  %h3 Change Status:
+  = form_for @resource, url: project_path(@resource), method: :patch, data: { turbo_stream: true } do |f|
+    .form-group
+      = f.select :status, [['ToDo', 0], ['InProgress', 1],['Done', 2]], {}, class: "form-control"
+    .form-group{ style: "margin-top: 10px;" }
+      = f.submit "Update Status", class: "btn btn-success"
+
+  %hr{ style: "margin: 20px 0;" }
+
+= form_for Comment.new, data: { turbo_stream: true } do |f|
+  = f.hidden_field :project_id, value: @resource.id
+  = f.hidden_field :user_id, value: current_user.id
+  .form-group
+    = f.label :body, "Add a Comment:"
+    = f.text_area :body
+  .form-group{ style: "margin-top: 10px;" }
+    = f.submit "Post Comment", class: "btn btn-primary"
+
+%h3 Comments:
+#comments
+  = render @resource.comments
+

@@ -1,0 +1,4 @@
+%div{ id: dom_id(comment), class: "comment-box" }
+  %strong= comment.user.name || comment.user.email
+  %p= comment.body
+  %small= comment.created_at.strftime("%A, %H:%M")

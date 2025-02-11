@@ -1,0 +1,70 @@
+:css
+  section {
+    width: 80%;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+
+  .btn-warning {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+  }
+
+  .btn:hover {
+    opacity: 0.8;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+%section
+  %h2 Project List
+  %a{ href: new_project_path, class: "btn btn-primary", style: "margin-bottom: 10px; display: inline-block;" } Create Project
+
+  %table{ style: "width: 100%; border-collapse: collapse;" }
+    %thead
+      %tr{ style: "background: #f8f9fa;" }
+        %th{ style: "padding: 10px; border-bottom: 2px solid #ddd;" } Project Title
+        %th{ style: "padding: 10px; border-bottom: 2px solid #ddd;" } Description
+        %th{ style: "padding: 10px; border-bottom: 2px solid #ddd;" } Created By
+        %th{ style: "padding: 10px; border-bottom: 2px solid #ddd;" } Actions
+    %tbody
+      - @resources.each do |project|
+        %tr{ onclick: "window.location='#{project_path(project)}'", style: "cursor: pointer;" }
+          %td{ style: "padding: 10px; border-bottom: 1px solid #ddd;" }= project.title
+          %td{ style: "padding: 10px; border-bottom: 1px solid #ddd;" }= project.description
+          %td{ style: "padding: 10px; border-bottom: 1px solid #ddd;" }= project.user.name || project.user.email
+          %td{ style: "padding: 10px; border-bottom: 1px solid #ddd;" }
+            %a{ href: edit_project_path(project), class: "btn btn-sm btn-warning", onclick: "event.stopPropagation();" } Edit
