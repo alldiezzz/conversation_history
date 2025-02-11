@@ -42,8 +42,6 @@ This is a simple **Project Conversation History** application built with **Ruby 
   - 🟡 `ToDo`
   - 🔵 `In Progress`
   - 🟢 `Done`
-- **Rules:**
-  - Users can move forward (`ToDo → In Progress → Done`), but cannot revert back.
 
 ### **2️⃣ Is this similar to a Jira Task?**
 - This implementation follows a simplified task management approach, similar to Jira's workflow but with fewer features.
