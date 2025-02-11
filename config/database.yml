@@ -15,8 +15,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: root
-  password: password
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
   host: <%= ENV["DB_HOST"] %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
@@ -81,21 +81,6 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-production:
-  primary: &primary_production
-    <<: *default
-    database: conversation_history_production
-    username: conversation_history
-    password: <%= ENV["CONVERSATION_HISTORY_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: conversation_history_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: conversation_history_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: conversation_history_production_cable
-    migrations_paths: db/cable_migrate
+development:
+  <<: *default
+  database:  <%= ENV["DB_NAME"] %>
