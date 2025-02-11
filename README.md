@@ -1,7 +1,9 @@
 # Conversation History
 
-## DEMO URL
-https://conversation-history-0746b132b7c4.herokuapp.com/
+## DEMO APP
+URL: https://conversation-history-0746b132b7c4.herokuapp.com/
+Email: test@mailer.com
+Password: YLcjFhUH6wKEv3Y
 
 ## Overview
 This is a simple **Project Conversation History** built with **Ruby on Rails**. It allows users to:
